@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Dropdown, Routes } from "./navigation";
+import { Routes } from "./navigation";
 import { SignInButton, SignOutButton } from "../auth/AuthButtons";
 
 export default async function Header() {
@@ -9,7 +9,7 @@ export default async function Header() {
 				{/* Left Header */}
 				<div className="flex items-center gap-8">
 					<Link href={"/"} className="text-2xl font-bold">
-						<span className="text-blue-700">code</span>
+						<span className="text-blue-800">code</span>
 						<span>Home</span>
 					</Link>
 
@@ -18,9 +18,7 @@ export default async function Header() {
 
 				{/* Right Header */}
 				<div className="flex items-center">
-					{/* <Dropdown /> */}
 					<SignInButton />
-					{/* <SignOutButton /> */}
 				</div>
 			</div>
 		</header>

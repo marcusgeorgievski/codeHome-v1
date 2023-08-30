@@ -36,7 +36,7 @@ export function Routes() {
 						href={"/explore"}
 						className={`${linkStyles} ${
 							inRoute("explore")
-								? "text-blue-700"
+								? "text-blue-800"
 								: "text-slate-700"
 						}`}
 					>
@@ -49,7 +49,7 @@ export function Routes() {
 						href={"/about"}
 						className={`${linkStyles} ${
 							inRoute("about")
-								? "text-blue-700"
+								? "text-blue-800"
 								: "text-slate-700"
 						}`}
 					>
@@ -58,75 +58,5 @@ export function Routes() {
 				</li>
 			</ul>
 		</nav>
-	);
-}
-
-import { useState, useEffect, useRef } from "react";
-import { CiSearch } from "react-icons/ci";
-import { PiPlantThin, PiLightbulbThin } from "react-icons/pi";
-import { AiOutlineMenu } from "react-icons/ai";
-import { BiMenuAltRight } from "react-icons/bi";
-
-export function Dropdown() {
-	const [open, setOpen] = useState(false);
-
-	useEffect(() => {
-		document.addEventListener("click", handleClickOutside, true);
-		return () => {
-			document.removeEventListener("click", handleClickOutside, true);
-		};
-	}, []);
-
-	const element = useRef<HTMLUListElement | null>(null);
-
-	function handleClickOutside(e: any) {
-		if (!element.current!.contains(e.target)) setOpen(false);
-	}
-
-	return (
-		<div className="relative translate-y-[2px]">
-			<button onClick={() => setOpen(!open)}>
-				{!open ? <AiOutlineMenu /> : <BiMenuAltRight />}
-			</button>
-			<ul
-				ref={element}
-				className={`text-sm font-bold  text-slate-800 absolute right-0
-                flex-col bg-white border border-slate-300 rounded translate-y-2 overflow-hidden
-
-            ${open ? "flex" : "hidden"}`}
-			>
-				<li>
-					<Link
-						href={"/users"}
-						className="flex items-center gap-1 px-6 py-2 hover:bg-slate-100"
-						onClick={() => setOpen(false)}
-					>
-						{" "}
-						<CiSearch />
-						Users
-					</Link>
-				</li>
-				<li>
-					<Link
-						href={"/about"}
-						className="flex items-center gap-1 px-6 py-2 hover:bg-slate-100"
-						onClick={() => setOpen(false)}
-					>
-						<PiPlantThin />
-						About
-					</Link>
-				</li>
-				<li>
-					<Link
-						href={"/updates"}
-						className="flex items-center gap-1 px-6 py-2 whitespace-nowrap hover:bg-slate-100"
-						onClick={() => setOpen(false)}
-					>
-						<PiLightbulbThin />
-						What&apos;s New
-					</Link>
-				</li>
-			</ul>
-		</div>
 	);
 }
