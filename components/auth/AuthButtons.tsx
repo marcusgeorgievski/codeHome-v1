@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Loading from "../ui/loading";
 import UserDropdown from "../ui/user-dropdown";
+import { User } from "@/lib/types";
 
 export function SignInButton() {
 	const { data: session, status } = useSession();
@@ -12,7 +13,7 @@ export function SignInButton() {
 	}
 
 	if (status === "authenticated") {
-		return <UserDropdown user={session.user} />;
+		return <UserDropdown user={session.user as User} />;
 	}
 
 	return (

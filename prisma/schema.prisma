@@ -64,7 +64,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   
-  username      String?   @unique 
+  username      String?   @unique @default(cuid())
   bio           String?   @db.Text
 
   followers Follows[] @relation("following")
