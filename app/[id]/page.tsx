@@ -1,14 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { UserCard } from "@/components/ui/user-cards";
 import { User } from "@/lib/types";
-
-// For tabs
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { HiOutlineUser } from "react-icons/hi";
-import { BsCode } from "react-icons/bs";
-import { IoMdHeartEmpty } from "react-icons/io";
-import { PiUsers } from "react-icons/pi";
-import { CgFeed } from "react-icons/cg";
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from "@/components/ui/shadcn/tabs";
 
 // Dyanmic page
 export const dynamic = "force-dynamic";
@@ -79,3 +77,10 @@ export default async function UserPage({ params: { id } }: Props) {
 		</>
 	);
 }
+
+// Icons
+import { HiOutlineUser } from "react-icons/hi";
+import { BsCode } from "react-icons/bs";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { PiUsers } from "react-icons/pi";
+import { CgFeed } from "react-icons/cg";

@@ -4,6 +4,8 @@ import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { MdOutlineLaptop } from "react-icons/md";
 import { useSession } from "next-auth/react";
 
+import { prisma } from "@/lib/prisma";
+
 // Shadcn Code
 
 import {
@@ -14,9 +16,9 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/components/ui/shadcn/form";
+import { Input } from "@/components/ui/shadcn/input";
+import { Textarea } from "@/components/ui/shadcn/textarea";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -57,82 +59,7 @@ export default function Settings() {
 		<>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="flex flex-col w-1/3 gap-4">
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Name</FormLabel>
-									<FormControl>
-										<Input placeholder="name" {...field} />
-									</FormControl>
-									<FormDescription>
-										{/* This is your public username. */}
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormField
-							control={form.control}
-							name="username"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Username</FormLabel>
-									<FormControl>
-										<Input
-											placeholder="@username"
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription>
-										{/* This is your public username. */}
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormItem>
-							<FormLabel>Email</FormLabel>
-							<FormControl>
-								<Input
-									disabled
-									type="email"
-									placeholder={session?.user?.email!}
-								/>
-							</FormControl>
-							<FormDescription>
-								{/* This is your account&apos;s email. */}
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-
-						<FormField
-							control={form.control}
-							name="bio"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Bio</FormLabel>
-									<FormControl>
-										<Textarea
-											placeholder="Tell us a little bit about yourself"
-											className="resize-none"
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription>
-										{/* You can <span>@mention</span> other
-										users and organizations. */}
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
-
+					<UserInformation form={form} />
 					<button
 						className="px-4 py-2 mt-8 font-medium text-white border rounded-md shadow bg-slate-800 hover:bg-slate-700"
 						type="submit"
@@ -141,6 +68,85 @@ export default function Settings() {
 					</button>
 				</form>
 			</Form>
+		</>
+	);
+}
+
+function UserInformation({ form }: { form: any }) {
+	return (
+		<>
+			<div className="flex flex-col w-1/3 gap-4">
+				<FormField
+					control={form.control}
+					name="name"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Name</FormLabel>
+							<FormControl>
+								<Input placeholder="name" {...field} />
+							</FormControl>
+							<FormDescription>
+								{/* This is your public username. */}
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormField
+					control={form.control}
+					name="username"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Username</FormLabel>
+							<FormControl>
+								<Input placeholder="@username" {...field} />
+							</FormControl>
+							<FormDescription>
+								{/* This is your public username. */}
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormItem>
+					<FormLabel>Email</FormLabel>
+					<FormControl>
+						<Input
+							disabled
+							type="email"
+							placeholder={session?.user?.email!}
+						/>
+					</FormControl>
+					<FormDescription>
+						{/* This is your account&apos;s email. */}
+					</FormDescription>
+					<FormMessage />
+				</FormItem>
+
+				<FormField
+					control={form.control}
+					name="bio"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Bio</FormLabel>
+							<FormControl>
+								<Textarea
+									placeholder="Tell us a little bit about yourself"
+									className="resize-none"
+									{...field}
+								/>
+							</FormControl>
+							<FormDescription>
+								{/* You can <span>@mention</span> other
+										users and organizations. */}
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+			</div>
 		</>
 	);
 }

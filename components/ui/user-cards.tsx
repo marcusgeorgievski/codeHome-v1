@@ -1,9 +1,10 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import { UserSkeleton } from "./skeletons";
-import { User } from "@/lib/types";
+import { User } from "@prisma/client";
 
-export async function UserCard({ user }: { user: User }) {
+export async function UserCard({ user }: { user: any }) {
+	// FIX TYPE LATER
 	return (
 		<>
 			<Suspense fallback={<UserSkeleton />}>

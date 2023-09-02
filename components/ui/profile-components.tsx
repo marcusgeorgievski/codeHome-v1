@@ -1,21 +1,4 @@
-import { getServerSession } from "next-auth";
-import { prisma } from "@/lib/prisma";
-import { User } from "@prisma/client";
 import Link from "next/link";
-
-export default function Dashboard() {
-	return (
-		<section className="grid gap-12 lg:grid-cols-[1fr,3fr] grid-cols-1">
-			<aside className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
-				<Links />
-				<Statistics />
-			</aside>
-			<div>
-				<About />
-			</div>
-		</section>
-	);
-}
 
 function Links() {
 	return (

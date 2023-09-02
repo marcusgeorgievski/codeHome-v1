@@ -4,29 +4,31 @@ import Image from "next/image";
 
 export default function CodeHome({
 	className,
-	icon = false,
+	logo = false,
+	logoStyle,
 }: {
 	className?: string;
-	icon?: boolean;
+	logo?: boolean;
+	logoStyle?: string;
 }) {
 	return (
-		<div className={className + " flex items-center"}>
+		<div className={"flex items-center " + className}>
 			<span className="text-blue-800">code</span>
 			<span>Home</span>
 			<Image
-				src="/l3.png"
+				src="/l4.png"
 				alt="logo"
 				width="200"
 				height="200"
-				className={`w-10 h-20px -translate-y-[3px] ${
-					!icon && "hidden"
-				}`}
+				className={` ${!logo && "hidden"} ${logoStyle}`}
 			/>
 			{/* <BsCode
 				className={`${
-                    !icon && "hidden"
+					!icon && "hidden"
 				} text-blue-800 translate-y-[1.5px]`}
 			/> */}
 		</div>
 	);
 }
+
+// import { BsCode } from "react-icons/bs";

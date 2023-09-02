@@ -1,57 +1,48 @@
 "use client";
+import Link from "next/link";
+import { useState } from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { HiOutlineUser, HiOutlineCog } from "react-icons/hi";
-import { BsCode } from "react-icons/bs";
-import { CgFeed } from "react-icons/cg";
-import { IoMdHeartEmpty } from "react-icons/io";
-import { PiUsers } from "react-icons/pi";
-import { GoChevronDown } from "react-icons/go";
+// Tabs
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from "@/components/ui/shadcn/tabs";
 
+// Dropdown menu
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/shadcn/dropdown-menu";
 
-import { useState } from "react";
-import Settings from "./pages/settings";
+/** Components
+ *
+ *      ProfileTabs
+ *      TabBar
+ *      TabDropdown
+ *      Icon
+ */
 
-export default function DashboardTabs() {
+export default function ProfileTabs({ self = true }: { self?: boolean }) {
 	const [tab, setTab] = useState("profile");
-
 	return (
 		<>
-			<div className="mb-8">
-				<span className="hidden sm:block">
-					<TabBar tab={tab} setTab={setTab} />
-				</span>
-				<span className="sm:hidden">
-					<TabDropdown tab={tab} setTab={setTab} />
-				</span>
+			<div className="hidden sm:block">
+				<TabBar tab={tab} setTab={setTab} />
 			</div>
-
-			<div>
-				<Page tab={tab} />
+			<div className="pt-4 sm:hidden">
+				<TabDropdown tab={tab} setTab={setTab} />
 			</div>
 		</>
 	);
 }
 
-function Page({ tab }: { tab: string }) {
-	switch (tab) {
-		case "settings":
-			return <Settings />;
-
-		default:
-			<h1>hi</h1>;
-	}
-}
-
-function TabBar({ tab, setTab }: { tab: string; setTab: any }) {
+export function TabBar({ tab, setTab }: { tab: string; setTab: any }) {
 	return (
-		<Tabs defaultValue="projects" className="">
+		<Tabs defaultValue="profile" className="">
 			{/* Tabs */}
 			<TabsList>
 				<TabsTrigger
@@ -59,40 +50,49 @@ function TabBar({ tab, setTab }: { tab: string; setTab: any }) {
 					asChild
 					onClick={() => setTab("profile")}
 				>
-					<button className="flex w-full gap-2">
+					<Link href={"/dashboard"} className="flex w-full gap-2">
 						<HiOutlineUser className="mr-1" />
 						Profile
-					</button>
+					</Link>
 				</TabsTrigger>
 				<TabsTrigger
 					value="projects"
 					asChild
 					onClick={() => setTab("projects")}
 				>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/projects"}
+						className="flex w-full gap-2"
+					>
 						<BsCode className="mr-1" />
 						Projects
-					</button>
+					</Link>
 				</TabsTrigger>
 				<TabsTrigger
 					value="activity"
 					asChild
 					onClick={() => setTab("activity")}
 				>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/activity"}
+						className="flex w-full gap-2"
+					>
 						<CgFeed className="mr-1" />
 						Activity
-					</button>
+					</Link>
 				</TabsTrigger>
 				<TabsTrigger
 					value="social"
 					asChild
 					onClick={() => setTab("social")}
 				>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/social"}
+						className="flex w-full gap-2"
+					>
 						<PiUsers className="mr-1" />
 						Social
-					</button>
+					</Link>
 				</TabsTrigger>
 
 				<TabsTrigger
@@ -100,10 +100,13 @@ function TabBar({ tab, setTab }: { tab: string; setTab: any }) {
 					asChild
 					onClick={() => setTab("saved")}
 				>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/saved"}
+						className="flex w-full gap-2"
+					>
 						<IoMdHeartEmpty className="mr-1" />
 						Saved
-					</button>
+					</Link>
 				</TabsTrigger>
 
 				<TabsTrigger
@@ -111,23 +114,15 @@ function TabBar({ tab, setTab }: { tab: string; setTab: any }) {
 					asChild
 					onClick={() => setTab("settings")}
 				>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/settings"}
+						className="flex w-full gap-2"
+					>
 						<HiOutlineCog className="mr-1" />
 						Settings
-					</button>
+					</Link>
 				</TabsTrigger>
 			</TabsList>
-
-			{/* Content */}
-			{/* <TabsContent value="account">
-				Make changes to your account here.
-			</TabsContent>
-			<TabsContent value="password">
-				Change your password here.
-			</TabsContent>
-			<TabsContent value="settings">
-				<Settings />
-			</TabsContent> */}
 		</Tabs>
 	);
 }
@@ -148,42 +143,57 @@ export function TabDropdown({ tab, setTab }: { tab: string; setTab: any }) {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuItem asChild onClick={() => setTab("profile")}>
-					<button className="flex w-full gap-2">
+					<Link href={"/dashboard"} className="flex w-full gap-2">
 						<HiOutlineUser className="mr-1" />
 						Profile
-					</button>
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild onClick={() => setTab("projects")}>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/projects"}
+						className="flex w-full gap-2"
+					>
 						<BsCode className="mr-1" />
 						Projects
-					</button>
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild onClick={() => setTab("activity")}>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/activity"}
+						className="flex w-full gap-2"
+					>
 						<CgFeed className="mr-1" />
 						Activity
-					</button>
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild onClick={() => setTab("social")}>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/social"}
+						className="flex w-full gap-2"
+					>
 						<PiUsers className="mr-1" />
 						Social
-					</button>
+					</Link>
 				</DropdownMenuItem>
 
 				<DropdownMenuItem asChild onClick={() => setTab("saved")}>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/saved"}
+						className="flex w-full gap-2"
+					>
 						<IoMdHeartEmpty className="mr-1" />
 						Saved
-					</button>
+					</Link>
 				</DropdownMenuItem>
 
 				<DropdownMenuItem asChild onClick={() => setTab("settings")}>
-					<button className="flex w-full gap-2">
+					<Link
+						href={"/dashboard/settings"}
+						className="flex w-full gap-2"
+					>
 						<HiOutlineCog className="mr-1" />
 						Settings
-					</button>
+					</Link>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
@@ -208,3 +218,10 @@ function Icon({ tab }: { tab: string }) {
 			break;
 	}
 }
+
+import { HiOutlineUser, HiOutlineCog } from "react-icons/hi";
+import { BsCode } from "react-icons/bs";
+import { CgFeed } from "react-icons/cg";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { PiUsers } from "react-icons/pi";
+import { GoChevronDown } from "react-icons/go";
