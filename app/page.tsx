@@ -146,7 +146,7 @@ const cards: Card[] = [
 
 function HomeCards() {
 	return (
-		<section className="px-4 grid gap-6 md:px-12 md:grid-cols-2">
+		<section className="grid gap-6 px-4 md:px-12 md:grid-cols-2">
 			{cards.map((card: Card) => {
 				const { title, content, icon } = card;
 				return (
@@ -155,7 +155,7 @@ function HomeCards() {
 						key={title}
 						className="hover:scale-[1.02] transition-transform p-4 bg-white/80"
 					>
-						<h3 className="flex items-center mb-4 text-xl font-semibold gap-2 text-slate-700">
+						<h3 className="flex items-center gap-2 mb-4 text-xl font-semibold text-slate-700">
 							{icon}
 							{title}
 						</h3>
@@ -184,7 +184,7 @@ function Blob({
 			<div className="relative flex items-center justify-center">
 				{/* <div
 					aria-hidden
-					className="absolute inset-x-0 w-40 mx-auto rounded-full opacity-75 scale-y-100 rotate-45 inset-y-16 bg-gradient-to-b from-blue-500 to-blue-300 blur-2xl/0"
+					className="absolute inset-x-0 w-40 mx-auto scale-y-100 rotate-45 rounded-full opacity-75 inset-y-16 bg-gradient-to-b from-blue-500 to-blue-300 blur-2xl/0"
 				></div> */}
 				<div className={blob}></div>
 				<div className="relative">{children}</div>
