@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Loading from "../ui/loading";
 import UserDropdown from "../ui/user-dropdown";
-import { User } from "@/lib/types";
+import { User } from "@prisma/client";
 
 export function SignInButton() {
 	const { data: session, status } = useSession();

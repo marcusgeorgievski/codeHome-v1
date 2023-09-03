@@ -16,7 +16,7 @@ export default function CodeHome({
 			<span className="text-blue-800">code</span>
 			<span>Home</span>
 			<Image
-				src="/l4.png"
+				src="/l1.png"
 				alt="logo"
 				width="200"
 				height="200"

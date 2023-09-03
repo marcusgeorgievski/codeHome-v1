@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
-export function UserSkeleton() {
+export function ProfileCardSkeleton() {
 	return (
 		<div className="flex items-center gap-2 mb-4">
 			<Skeleton className="w-[50px] h-[50px] rounded-full" />

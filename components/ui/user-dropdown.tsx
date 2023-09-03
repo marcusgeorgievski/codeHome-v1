@@ -1,8 +1,5 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
-
-import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 
 import {
@@ -13,15 +10,49 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/shadcn/dropdown-menu";
-import { User } from "@/lib/types";
+
 import CodeHome from "./codehome";
 
-export default function UserDropdown({ user }: { user: User }) {
-	const { data: session, status } = useSession();
+interface MenuItem {
+	text: string;
+	icon: React.ReactNode;
+	route: string;
+}
 
-	if (status === "authenticated") {
-		console.log("\n\n\nCLIENT: ", session);
-	}
+export default function UserDropdown({ user }: { user: User }) {
+	const menuItems: MenuItem[] = [
+		{
+			text: "Profile",
+			icon: <HiOutlineUser className="mr-1" />,
+			route: "",
+		},
+		{
+			text: "Projects",
+			icon: <BsCode className="mr-1" />,
+			route: "/projects",
+		},
+		{
+			text: "Activity",
+			icon: <CgFeed className="mr-1" />,
+			route: "/activity",
+		},
+		{
+			text: "Social",
+			icon: <PiUsers className="mr-1" />,
+			route: "/social",
+		},
+		{
+			text: "Likes",
+			icon: <IoMdHeartEmpty className="mr-1" />,
+			route: "/likes",
+		},
+		{
+			text: "Settings",
+			icon: <HiOutlineCog className="mr-1" />,
+			route: "/settings",
+		},
+	];
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
@@ -48,42 +79,23 @@ export default function UserDropdown({ user }: { user: User }) {
 							<span className="text-blue-800">My Account</span>
 						</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem asChild>
-							<Link href={"/dashboard"} className="flex ">
-								<HiOutlineUser className="mr-1 text-lg" />
-								Dashboard
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem asChild>
-							<Link href={"/projects"} className="flex w-full">
-								<BsCode className="mr-1 text-lg" />
-								Projects
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem asChild>
-							<Link href={"/activity"} className="flex w-full">
-								<CgFeed className="mr-1 text-lg" />
-								Activity
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem asChild>
-							<Link href={"/social"} className="flex w-full">
-								<PiUsers className="mr-1 text-lg" />
-								Social
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem asChild>
-							<Link href={"/saved"} className="flex w-full">
-								<IoMdHeartEmpty className="mr-1 text-lg" />
-								Saved
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem asChild>
-							<Link href={"/settings"} className="flex w-full">
-								<HiOutlineCog className="mr-1 text-lg" />
-								Settings
-							</Link>
-						</DropdownMenuItem>
+
+						{/* Loop over routes */}
+						{menuItems.map((item) => {
+							return (
+								<DropdownMenuItem asChild key={item.route}>
+									<Link
+										href={`/${user.username}${item.route}`}
+										className="flex "
+									>
+										{item.icon}
+										{item.text}
+									</Link>
+								</DropdownMenuItem>
+							);
+						})}
+
+						{/* Sign Out */}
 						<DropdownMenuItem asChild>
 							<button
 								onClick={() => signOut()}
@@ -95,6 +107,7 @@ export default function UserDropdown({ user }: { user: User }) {
 						</DropdownMenuItem>
 					</div>
 
+					{/* Additional routes for small screen */}
 					<div className="sm:hidden">
 						<DropdownMenuLabel>
 							<CodeHome className="font-bold" logo={false} />
@@ -134,3 +147,4 @@ import { SiHomeadvisor } from "react-icons/si";
 import { PiSignOutLight, PiUsers } from "react-icons/pi";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { User } from "@prisma/client";

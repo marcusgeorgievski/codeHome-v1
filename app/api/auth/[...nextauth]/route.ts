@@ -16,20 +16,27 @@ const authOptions: NextAuthOptions = {
 		strategy: "jwt",
 	},
 	callbacks: {
-		async session({ session, user }) {
+		async session({ session, user }: any) {
 			// Send properties to the client, like an access_token and user id from a provider.
 
 			if (!session || !session.user) return session;
 
-			const userData = await prisma.user.findUnique({
+			const dbUser = await prisma.user.findUnique({
 				where: { email: session.user?.email! },
 			});
 
-			session.user.username = userData?.username;
-
-			console.log(session);
+			// Add username from db to client session
+			if (dbUser) session.user.username = dbUser?.username;
 
 			return session;
+		},
+		async signIn({ user }) {
+			// Do something on signin
+
+			// const dbUser = await prisma.user.findFirst({
+			// 	where: { email: user.email },
+			// });
+			return true;
 		},
 	},
 };

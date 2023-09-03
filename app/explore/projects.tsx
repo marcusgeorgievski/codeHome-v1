@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
-import { UserSkeleton } from "@/components/ui/skeletons";
+import { ProfileCardSkeleton } from "@/components/ui/skeletons";
 import { Project } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -29,7 +29,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
 function ProjectCard({ project }: { project: Project }) {
 	return <>hi</>;
 	// return (
-	// <Suspense fallback={<UserSkeleton />}>
+	// <Suspense fallback={<ProfileCardSkeleton />}>
 	// 	<Link
 	// 		href={user.id}
 	// 		className="flex gap-2 flex-col px-2 py-1 border rounded shadow outline-none border-slate-100 hover:outline-none hover:scale-[1.01] transition-all"

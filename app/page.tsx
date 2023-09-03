@@ -1,5 +1,7 @@
 import CodeHome from "@/components/ui/codehome";
 import Link from "next/link";
+import Card from "@/components/ui/card";
+import { prisma } from "@/lib/prisma";
 
 /**     Components
  *
@@ -18,8 +20,17 @@ export default function Home() {
 	);
 }
 
-function Hero() {
-	// h-[calc(100vh-8rem)]
+async function Hero() {
+	const session = await getServerSession();
+
+	let user = undefined;
+
+	if (session?.user) {
+		user = await prisma.user.findUnique({
+			where: { email: session?.user?.email! },
+		});
+	}
+
 	return (
 		<div className="relative mb-8 h-[60vh]">
 			<div className="pt-10 mb-16 ">
@@ -37,12 +48,22 @@ function Hero() {
 
 			{/* Blue Buttons */}
 			<div className="flex justify-center gap-4">
-				<Link
-					href={"/dashboard"}
-					className="px-4 py-2 font-semibold text-white bg-blue-700 rounded-md hover:opacity-90"
-				>
-					My account
-				</Link>
+				{user === undefined ? (
+					<Link
+						href={"/api/auth/signin"}
+						className="px-4 py-2 font-semibold text-white bg-blue-700 rounded-md hover:opacity-90"
+					>
+						Sign In
+					</Link>
+				) : (
+					<Link
+						href={"/" + user?.username}
+						className="px-4 py-2 font-semibold text-white bg-blue-700 rounded-md hover:opacity-90"
+					>
+						My Account
+					</Link>
+				)}
+
 				<Link
 					href={"/about"}
 					className="px-4 py-2 font-semibold text-white bg-blue-700 rounded-md hover:opacity-90"
@@ -67,6 +88,7 @@ function Hero() {
 import { CgFeed } from "react-icons/cg";
 import { HiCollection } from "react-icons/hi";
 import { PiNotebookFill, PiPresentationFill } from "react-icons/pi";
+import { getServerSession } from "next-auth";
 
 interface Card {
 	title: string;
@@ -128,9 +150,10 @@ function HomeCards() {
 			{cards.map((card: Card) => {
 				const { title, content, icon } = card;
 				return (
-					<div
+					// <div key={title}>
+					<Card
 						key={title}
-						className="p-4 border rounded-md shadow-md bg-white/80 border-slate-100 hover:scale-[1.02] transition-transform"
+						className="hover:scale-[1.02] transition-transform p-4 bg-white/80"
 					>
 						<h3 className="flex items-center gap-2 mb-4 text-xl font-semibold text-slate-700">
 							{icon}
@@ -138,7 +161,8 @@ function HomeCards() {
 						</h3>
 
 						{content}
-					</div>
+					</Card>
+					// </div>
 				);
 			})}
 		</section>
