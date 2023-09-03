@@ -10,6 +10,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "codeHome",
 	description: "The home route of your coding relating projects",
+	viewport: {
+		width: "device-width",
+		initialScale: 1,
+		maximumScale: 1,
+	},
 };
 
 export default async function RootLayout({

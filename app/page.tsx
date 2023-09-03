@@ -49,12 +49,7 @@ async function Hero() {
 			{/* Blue Buttons */}
 			<div className="flex justify-center gap-4">
 				{user === undefined ? (
-					<Link
-						href={"/api/auth/signin"}
-						className="px-4 py-2 font-semibold text-white bg-blue-700 rounded-md hover:opacity-90"
-					>
-						Sign In
-					</Link>
+					<HomeSignIn />
 				) : (
 					<Link
 						href={"/" + user?.username}
@@ -89,6 +84,7 @@ import { CgFeed } from "react-icons/cg";
 import { HiCollection } from "react-icons/hi";
 import { PiNotebookFill, PiPresentationFill } from "react-icons/pi";
 import { getServerSession } from "next-auth";
+import { HomeSignIn } from "@/components/auth/AuthButtons";
 
 interface Card {
 	title: string;

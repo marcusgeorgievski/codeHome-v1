@@ -97,7 +97,7 @@ export function Links() {
 	const links = [
 		{
 			text: "Personal",
-			href: userData.github,
+			href: userData.personal,
 			icon: <AiOutlineLaptop />,
 		},
 		{

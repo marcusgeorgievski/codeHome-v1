@@ -26,6 +26,17 @@ export function SignInButton() {
 	);
 }
 
+export function HomeSignIn() {
+	return (
+		<button
+			onClick={() => signIn()}
+			className="px-4 py-2 font-semibold text-white bg-blue-700 rounded-md hover:opacity-90"
+		>
+			Sign In
+		</button>
+	);
+}
+
 export function SignOutButton() {
 	return <button onClick={() => signOut()}>Sign Out</button>;
 }
