@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
 export function ProfileCardSkeleton() {
 	return (
-		<div className="flex items-center gap-2 mb-4">
+		<div className="flex items-center mb-4 gap-2">
 			<Skeleton className="w-[50px] h-[50px] rounded-full" />
 
 			<div className="flex flex-col gap-2">
@@ -16,7 +16,7 @@ export function ProfileCardSkeleton() {
 
 export function ProjectSkeleton() {
 	return (
-		<div className="flex items-center gap-2 mb-4">
+		<div className="flex items-center mb-4 gap-2">
 			<Skeleton className="w-[50px] h-[50px] rounded-full" />
 
 			<div className="flex flex-col gap-2">

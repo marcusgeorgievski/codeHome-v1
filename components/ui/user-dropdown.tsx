@@ -56,7 +56,7 @@ export default function UserDropdown({ user }: { user: User }) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<div className="flex items-center gap-2 px-2 py-1 transition-colors border rounded shadow-sm outline-none border-slate-200 hover:outline-none hover:bg-slate-100">
+				<div className="flex items-center px-2 py-1 border rounded outline-none gap-2 transition-colors shadow-sm border-slate-200 hover:outline-none hover:bg-slate-100">
 					<Image
 						src={user.image ?? "fake"}
 						width={28}

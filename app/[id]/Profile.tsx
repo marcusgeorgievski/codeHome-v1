@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 import {
 	FeaturedProjects,
-	Markdown,
+	About,
 	Sidebar,
 } from "@/components/profile/components";
 import { Project, User } from "@prisma/client";
@@ -38,19 +38,19 @@ export default function Profile({
 
 	return (
 		<ProfileContext.Provider value={{ isSelf, userData, setUserData }}>
-			<Sidebar />
+			<div className="grid grid-cols-1 sm:grid-cols-[1fr,3fr] gap-5">
+				<aside>
+					<Sidebar />
+				</aside>
 
-			<Markdown />
+				<div>
+					<FeaturedProjects />
 
-			<FeaturedProjects />
+					<About />
+				</div>
+			</div>
 		</ProfileContext.Provider>
 	);
-
-	// console.log("Profile.tsx: ", id);
-	// return (
-	// 	<ProfileProvider self={self} user={user}>
-	// 	</ProfileProvider>
-	// );
 }
 
 import { createContext, useContext, useEffect, useState } from "react";

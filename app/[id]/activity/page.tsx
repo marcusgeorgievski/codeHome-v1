@@ -1,8 +1,8 @@
 export default function Activity() {
 	return (
 		<div className="text-sm ">
-			<p className="font-medium mb-2">Activity coming soon</p>
-			<ul className="list-disc pl-8">
+			<p className="mb-2 font-medium">Activity coming soon</p>
+			<ul className="pl-8 list-disc">
 				<li>See what people you follow are coding</li>
 			</ul>
 		</div>

@@ -23,7 +23,7 @@ export default async function RootLayout({
 				<body className={inter.className}>
 					<Header />
 
-					<main className="max-w-screen-xl px-4 pt-4 pb-16 mx-auto sm:px-8 xl:px-4">
+					<main className="px-4 pt-4 pb-16 mx-auto max-w-screen-xl sm:px-8 xl:px-4">
 						<div className="mb-10">
 							<Breadcrumbs />
 						</div>

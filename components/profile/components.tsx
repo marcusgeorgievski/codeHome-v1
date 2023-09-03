@@ -13,12 +13,12 @@ export function Sidebar() {
 		<>
 			{/* Edit profile button */}
 			{isSelf && !edit && (
-				<Card className="flex items-center justify-center  mb-2 shadow-none border-slate-200 hover:bg-slate-600 transition-colors bg-slate-800 text-white">
+				<Card className="flex items-center justify-center mb-2 text-white transition-colors shadow-none border-slate-200 hover:bg-slate-600 bg-slate-800">
 					<button
 						onClick={(prev) => setEdit(!edit)}
 						className="w-full h-full py-2"
 					>
-						<p className="font-semibold text-sm">Edit Profile</p>
+						<p className="text-sm font-semibold">Edit Profile</p>
 					</button>
 				</Card>
 			)}
@@ -33,14 +33,14 @@ export function Sidebar() {
 function SidebarContent() {
 	const { userData } = useProfileContext();
 	return (
-		<div className="flex gap-4 flex-col">
+		<div className="flex flex-col gap-4">
 			{userData.bio && (
 				<div>
-					<h3 className="text-xs font-mono mb-2 text-slate-500">
+					<h3 className="mb-2 font-mono text-xs text-slate-500">
 						Bio
 					</h3>
 
-					<p className="text-sm text-slate-700 pl-2">
+					<p className="pl-2 text-sm text-slate-700">
 						{userData.bio || "no data"}
 					</p>
 				</div>
@@ -48,20 +48,20 @@ function SidebarContent() {
 
 			{userData.location && userData.occupation && (
 				<div>
-					<h3 className="text-xs font-mono mb-2 text-slate-500">
+					<h3 className="mb-2 font-mono text-xs text-slate-500">
 						About
 					</h3>
 
 					<div className="pl-2">
 						{userData.location && (
-							<p className="text-sm text-slate-700 flex items-center gap-2">
+							<p className="flex items-center gap-2 text-sm text-slate-700">
 								<span>🌍</span>
 								{userData.location || "no data"}
 							</p>
 						)}
 
 						{userData.occupation && (
-							<p className="text-sm text-slate-70 flex items-center gap-2">
+							<p className="flex items-center gap-2 text-sm text-slate-70">
 								<span>💼</span>
 								{userData.occupation || "no data"}
 							</p>
@@ -73,15 +73,15 @@ function SidebarContent() {
 			<Links />
 
 			<div>
-				<h3 className="text-xs font-mono mb-2 text-slate-500">Misc</h3>
+				<h3 className="mb-2 font-mono text-xs text-slate-500">Misc</h3>
 
 				<div className="px-2">
-					<p className="text-sm text-slate-600 flex items-center gap-2 justify-between">
+					<p className="flex items-center justify-between gap-2 text-sm text-slate-600">
 						<span className="">Joined</span>
 						{userData.createdAt.toDateString() || "no data"}
 					</p>
 
-					<p className="text-sm text-slate-700 flex items-center gap-2 justify-between">
+					<p className="flex items-center justify-between gap-2 text-sm text-slate-700">
 						<span className="">Email</span>
 						{userData.email || "no data"}
 					</p>
@@ -134,7 +134,7 @@ export function Links() {
 				<a
 					key={i}
 					href={link.href!}
-					className="text-sm text-slate-700 flex items-center gap-2"
+					className="flex items-center gap-2 text-sm text-slate-700"
 				>
 					{link.icon}
 					{link.text}
@@ -146,7 +146,7 @@ export function Links() {
 		<>
 			{validLinks.length !== 0 && (
 				<div>
-					<h3 className="text-xs font-mono mb-2 text-slate-500 ">
+					<h3 className="mb-2 font-mono text-xs text-slate-500 ">
 						Links
 					</h3>
 
@@ -167,7 +167,7 @@ export function Links() {
 										key={i}
 										href={link.href!}
 										target="_blank"
-										className="text-sm text-slate-700 flex items-center gap-2 rounded hover:bg-slate-100 border border-slate-50/0 hover:border-slate-50 px-2 py-1 "
+										className="flex items-center gap-2 px-2 py-1 text-sm border rounded text-slate-700 hover:bg-slate-100 border-slate-50/0 hover:border-slate-50 "
 									>
 										{link.icon}
 										{link.text}
@@ -182,11 +182,36 @@ export function Links() {
 }
 
 export function About() {
-	return <></>;
+	const [edit, setEdit] = useState(false);
+	const { isSelf, userData } = useProfileContext();
+
+	return (
+		<div>
+			{!userData.about && (
+				<>
+					<div className="flex items-center justify-between mb-2 border-b text-slate-800 border-slate-200">
+						<h3 className="font-mono text-2xl font-semibold ">
+							About
+						</h3>
+						{isSelf && (
+							<button onChange={(prev) => setEdit(!prev)}>
+								<BiSolidEdit />
+							</button>
+						)}
+					</div>
+
+					<article className="text-slate-800 ">
+						{userData.about || "section in progress :)"}
+					</article>
+				</>
+			)}
+		</div>
+	);
 }
 
 export function FeaturedProjects() {
-	return <></>;
+	const { isSelf, userData } = useProfileContext();
+	return <>{!userData}</>;
 }
 
 export function Markdown() {
@@ -195,4 +220,5 @@ export function Markdown() {
 
 import { AiFillGithub, AiFillLinkedin, AiOutlineLaptop } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";
+import { BiSolidEdit } from "react-icons/bi";
 import ProfileForm from "./profile-form";

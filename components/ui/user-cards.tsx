@@ -9,7 +9,7 @@ export function ProfileCard({ user }: { user: User }) {
 	return (
 		<>
 			<Suspense fallback={<ProfileCardSkeleton />}>
-				<div className="flex items-center gap-2 mb-4">
+				<div className="flex items-center mb-4 gap-2">
 					<Image
 						src={user?.image!}
 						height={50}

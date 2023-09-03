@@ -7,7 +7,7 @@ function Links() {
 				<li>
 					<Link
 						href={""}
-						className="flex items-center justify-center gap-2 py-1 transition-colors rounded sm:pl-4 sm:justify-start hover:bg-slate-200"
+						className="flex items-center justify-center py-1 rounded gap-2 transition-colors sm:pl-4 sm:justify-start hover:bg-slate-200"
 					>
 						<AiFillGithub />
 						GitHub
@@ -16,7 +16,7 @@ function Links() {
 				<li>
 					<Link
 						href={""}
-						className="flex items-center justify-center gap-2 py-1 transition-colors rounded sm:pl-4 sm:justify-start hover:bg-slate-200"
+						className="flex items-center justify-center py-1 rounded gap-2 transition-colors sm:pl-4 sm:justify-start hover:bg-slate-200"
 					>
 						<AiFillLinkedin />
 						LinkedIn
@@ -25,7 +25,7 @@ function Links() {
 				<li>
 					<Link
 						href={""}
-						className="flex items-center justify-center gap-2 py-1 transition-colors rounded sm:pl-4 sm:justify-start hover:bg-slate-200"
+						className="flex items-center justify-center py-1 rounded gap-2 transition-colors sm:pl-4 sm:justify-start hover:bg-slate-200"
 					>
 						<MdOutlineLaptop />
 						Personal
@@ -59,7 +59,7 @@ function Tags() {
 function Statistics() {
 	return (
 		<ProfileCard title="Statistics">
-			<ul className="flex flex-col gap-2 font-mono text-xs text-slate-700">
+			<ul className="flex flex-col font-mono text-xs gap-2 text-slate-700">
 				<li>Total projects</li>
 				<li>Saves</li>
 				<li>Followers</li>
@@ -75,7 +75,7 @@ function Statistics() {
 function FunFacts() {
 	return (
 		<ProfileCard title="About">
-			<ul className="flex flex-col gap-2 font-mono text-xs text-slate-700">
+			<ul className="flex flex-col font-mono text-xs gap-2 text-slate-700">
 				<li>Student</li>
 				<li>Canada</li>
 				<li>Followers</li>
@@ -96,7 +96,7 @@ function ProfileCard({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="p-4 border rounded-md shadow-md border-slate-100">
+		<div className="p-4 border shadow-md rounded-md border-slate-100">
 			<h3 className="mb-4 text-2xl font-semibold text-slate-800">
 				{title}
 			</h3>

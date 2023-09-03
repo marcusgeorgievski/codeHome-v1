@@ -111,15 +111,23 @@ model Follows {
 
 
 
+enum Status {
+    COMPLETE
+    ACTIVE
+    HOLD
+    PLANNING
+}
+
 model Project {
   id                String    @id @default(cuid())
 
   name              String
   description       String?     // Markdown description
+  readme            String?     // Markdown description
   private           Boolean
-  complete          Boolean     // True if active, False if in-progress
+  status            String     // True if active, False if in-progress
   createdAt         DateTime    @default(now())
-  feature           Boolean     // Feature on 'Profile' page + bring to front on 'Projects' page
+  feature           Boolean     @default(false)     // Feature on 'Profile' page + bring to front on 'Projects' page
 
   link              String?
   githubLink        String?

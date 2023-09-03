@@ -16,7 +16,7 @@ const formSchema = z.object({
 			message: "Username cannot exceed 35 chars.",
 		})
 		.refine((value) => !/\s/.test(value), {
-			message: "No spaces are allowed.",
+			message: "No spaces allowed.",
 		}),
 	name: z
 		.string()
@@ -122,13 +122,13 @@ export default function ProfileForm({ setEdit }: any) {
 							<button
 								// onClick={handleSubmit}
 								type="submit"
-								className="px-4 text-sm py-2 font-medium bg-blue-600 rounded text-center text-blue-50 hover:opacity-80"
+								className="px-4 py-2 text-sm font-medium text-center bg-blue-600 rounded text-blue-50 hover:opacity-80"
 							>
 								Save
 							</button>
 							<button
 								onClick={handleCancel}
-								className="px-4 text-sm py-2 font-medium bg-slate-300 rounded text-center text-slate-700 hover:opacity-80"
+								className="px-4 py-2 text-sm font-medium text-center rounded bg-slate-300 text-slate-700 hover:opacity-80"
 							>
 								cancel
 							</button>
@@ -143,7 +143,7 @@ export default function ProfileForm({ setEdit }: any) {
 export function ProfileSection({ form }: any) {
 	return (
 		<div>
-			<h3 className="text-xs font-mono mb-2 text-slate-500">Profile</h3>
+			<h3 className="mb-2 font-mono text-xs text-slate-500">Profile</h3>
 
 			<div className="flex flex-col gap-4">
 				<FormField
@@ -160,7 +160,7 @@ export function ProfileSection({ form }: any) {
 										className="pl-3"
 									/>
 
-									<span className="absolute left-0 top-0 translate-y-2 text-slate-600">
+									<span className="absolute top-0 left-0 translate-y-2 text-slate-600">
 										@
 									</span>
 								</div>
@@ -200,7 +200,7 @@ export function ProfileSection({ form }: any) {
 export function BioSection({ form }: any) {
 	return (
 		<div>
-			{/* <h3 className="text-xs font-mono mb-2 text-slate-500">Bio</h3> */}
+			{/* <h3 className="mb-2 font-mono text-xs text-slate-500">Bio</h3> */}
 
 			<div className="flex flex-col gap-4">
 				<FormField
@@ -228,7 +228,7 @@ export function BioSection({ form }: any) {
 export function AboutSection({ form }: any) {
 	return (
 		<div>
-			<h3 className="text-xs font-mono mb-2 text-slate-500">Profile</h3>
+			<h3 className="mb-2 font-mono text-xs text-slate-500">Profile</h3>
 
 			<div className="flex flex-col gap-4">
 				<FormField
@@ -306,7 +306,7 @@ const linkInputs = [
 export function LinksSection({ form }: any) {
 	return (
 		<div>
-			<h3 className="text-xs font-mono mb-4 text-slate-500">Links</h3>
+			<h3 className="mb-4 font-mono text-xs text-slate-500">Links</h3>
 
 			<div className="flex flex-col gap-4">
 				{linkInputs.map((link) => {
@@ -326,7 +326,7 @@ export function LinksSection({ form }: any) {
 													{...field}
 													className=""
 												/>
-												<span className="absolute left-0 top-0 translate-y-3 text-slate-700">
+												<span className="absolute top-0 left-0 translate-y-3 text-slate-700">
 													{link.icon}
 												</span>
 											</div>

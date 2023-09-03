@@ -5,14 +5,14 @@ import { TbFaceIdError } from "react-icons/tb";
 import { SiHomeadvisor } from "react-icons/si";
 export default function ProfileError() {
 	return (
-		<div className="inline-flex items-center w-full flex-col gap-8 pt-16">
-			<h2 className="font-bold text-3xl flex gap-3 items-center justify-center">
+		<div className="inline-flex flex-col items-center w-full pt-16 gap-8">
+			<h2 className="flex items-center justify-center text-3xl font-bold gap-3">
 				<TbFaceIdError /> Page not found!
 			</h2>
 
 			<Link
 				href={"/"}
-				className="flex items-center gap-2 shadow border border-slate-100 hover:bg-slate-100 bg-white p-2 py-1 text-sm font-medium rounded"
+				className="flex items-center p-2 py-1 text-sm font-medium bg-white border rounded shadow gap-2 border-slate-100 hover:bg-slate-100"
 			>
 				<SiHomeadvisor className="mr-1 text-lg" />
 				Go back home
