@@ -5,14 +5,14 @@ import { getServerSession } from "next-auth";
 import { ProjectList } from "@/components/project/project-list";
 
 interface Props {
-	params: { id: string };
+	params: { username: string };
 }
 
-export default async function Projects({ params: { id } }: Props) {
+export default async function Projects({ params: { username } }: Props) {
 	const session = await getServerSession();
 	const projects = await prisma.user.findUnique({
 		where: {
-			username: id,
+			username,
 		},
 		select: {
 			email: true,

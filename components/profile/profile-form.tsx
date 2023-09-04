@@ -362,7 +362,7 @@ import {
 	FormMessage,
 } from "@/components/ui/shadcn/form";
 import { Input } from "@/components/ui/shadcn/input";
-import { useProfileContext } from "@/app/[id]/Profile";
+import { useProfileContext } from "@/app/[username]/Profile";
 import { Textarea } from "../ui/shadcn/textarea";
 
 import { AiFillGithub, AiFillLinkedin, AiOutlineLaptop } from "react-icons/ai";

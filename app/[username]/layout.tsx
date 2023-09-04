@@ -6,21 +6,23 @@ export const dynamic = "force-dynamic";
 
 interface MetadataProps {
 	params: {
-		id: string;
+		username: string;
 	};
 }
 interface LayoutProps {
 	children: React.ReactNode;
 	params: {
-		id: string;
+		username: string;
 	};
 }
 
 // Metadata
-export async function generateMetadata({ params: { id } }: MetadataProps) {
+export async function generateMetadata({
+	params: { username },
+}: MetadataProps) {
 	const user = await prisma.user.findUniqueOrThrow({
 		where: {
-			username: id,
+			username,
 		},
 	});
 
@@ -31,11 +33,11 @@ export async function generateMetadata({ params: { id } }: MetadataProps) {
 
 export default async function ProfileLayout({
 	children,
-	params: { id },
+	params: { username },
 }: LayoutProps) {
 	const user = await prisma.user.findUniqueOrThrow({
 		where: {
-			username: id,
+			username,
 		},
 	});
 

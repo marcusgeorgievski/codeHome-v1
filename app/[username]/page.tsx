@@ -4,14 +4,14 @@ import { UserWithProjects } from "@/lib/types";
 import Profile from "./Profile";
 
 interface Props {
-	params: { id: string };
+	params: { username: string };
 }
 
-export default async function ProfilePage({ params: { id } }: Props) {
+export default async function ProfilePage({ params: { username } }: Props) {
 	// Get user + featured projects
 	const user = await prisma.user.findUnique({
 		where: {
-			username: id,
+			username,
 		},
 		include: {
 			projects: { where: { feature: true } },

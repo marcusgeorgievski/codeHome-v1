@@ -1,6 +1,6 @@
 "use client";
 import Card from "../ui/card";
-import { useProfileContext } from "@/app/[id]/Profile";
+import { useProfileContext } from "@/app/[username]/Profile";
 import { useState } from "react";
 import ProfileForm from "./profile-form";
 
