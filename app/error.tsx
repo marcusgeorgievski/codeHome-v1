@@ -1,5 +1,4 @@
 "use client";
-import Card from "@/components/ui/card";
 import Link from "next/link";
 import { TbFaceIdError } from "react-icons/tb";
 import { SiHomeadvisor } from "react-icons/si";

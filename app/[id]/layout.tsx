@@ -1,4 +1,3 @@
-import { getServerSession } from "next-auth";
 import ProfileTabs from "./tabs";
 import { prisma } from "@/lib/prisma";
 import { ProfileCard } from "@/components/ui/user-cards";

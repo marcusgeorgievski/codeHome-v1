@@ -1,5 +1,4 @@
 "use client";
-// import { BsCode } from "react-icons/bs";
 import Image from "next/image";
 
 export default function CodeHome({
@@ -22,13 +21,6 @@ export default function CodeHome({
 				height="200"
 				className={` ${!logo && "hidden"} ${logoStyle}`}
 			/>
-			{/* <BsCode
-				className={`${
-					!icon && "hidden"
-				} text-blue-800 translate-y-[1.5px]`}
-			/> */}
 		</div>
 	);
 }
-
-// import { BsCode } from "react-icons/bs";

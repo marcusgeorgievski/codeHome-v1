@@ -1,9 +1,8 @@
 "use client";
-import Link from "next/link";
 import Card from "../ui/card";
-import { Project, User } from "@prisma/client";
 import { useProfileContext } from "@/app/[id]/Profile";
 import { useState } from "react";
+import ProfileForm from "./profile-form";
 
 export function Sidebar() {
 	const { isSelf } = useProfileContext();
@@ -23,6 +22,7 @@ export function Sidebar() {
 				</Card>
 			)}
 
+			{/* Either display sidebar content or sidebar form */}
 			<Card className="p-3 border-slate-200">
 				{edit ? <ProfileForm setEdit={setEdit} /> : <SidebarContent />}
 			</Card>
@@ -32,6 +32,7 @@ export function Sidebar() {
 
 function SidebarContent() {
 	const { userData } = useProfileContext();
+
 	return (
 		<div className="flex flex-col gap-4">
 			{userData.bio && (
@@ -94,6 +95,7 @@ function SidebarContent() {
 export function Links() {
 	const { userData } = useProfileContext();
 
+	// In components since it uses user data
 	const links = [
 		{
 			text: "Personal",
@@ -127,6 +129,7 @@ export function Links() {
 		},
 	];
 
+	// Filter out null or empty links
 	const validLinks = links
 		.filter((link) => link.href !== null && link.href !== "")
 		.map((link, i) => {
@@ -134,7 +137,8 @@ export function Links() {
 				<a
 					key={i}
 					href={link.href!}
-					className="flex items-center gap-2 text-sm text-slate-700"
+					target="_blank"
+					className="flex items-center gap-2 px-2 py-1 text-sm border rounded text-slate-700 hover:bg-slate-100 border-slate-50/0 hover:border-slate-50 transition-colors"
 				>
 					{link.icon}
 					{link.text}
@@ -157,23 +161,7 @@ export function Links() {
 								: "grid-cols-2"
 						}`}
 					>
-						{links
-							.filter((link) => {
-								return link.href !== null && link.href !== "";
-							})
-							.map((link, i) => {
-								return (
-									<a
-										key={i}
-										href={link.href!}
-										target="_blank"
-										className="flex items-center gap-2 px-2 py-1 text-sm border rounded text-slate-700 hover:bg-slate-100 border-slate-50/0 hover:border-slate-50 "
-									>
-										{link.icon}
-										{link.text}
-									</a>
-								);
-							})}
+						{validLinks}
 					</div>
 				</div>
 			)}
@@ -211,14 +199,10 @@ export function About() {
 
 export function FeaturedProjects() {
 	const { isSelf, userData } = useProfileContext();
-	return <>{!userData}</>;
-}
 
-export function Markdown() {
-	return <></>;
+	return <>{!userData}</>;
 }
 
 import { AiFillGithub, AiFillLinkedin, AiOutlineLaptop } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";
 import { BiSolidEdit } from "react-icons/bi";
-import ProfileForm from "./profile-form";

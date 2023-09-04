@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { createContext, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-
 // Dropdown menu
 import {
 	DropdownMenu,
@@ -11,6 +10,13 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/shadcn/dropdown-menu";
 
+/** Components
+ *
+ *      ProfileTabs
+ *      TabBar
+ *      TabDropdown
+ *      Icon
+ */
 interface Tab {
 	text: string;
 	icon: React.ReactNode;
@@ -56,14 +62,6 @@ const tabs: Tab[] = [
 		self: true,
 	},
 ];
-
-/** Components
- *
- *      ProfileTabs
- *      TabBar
- *      TabDropdown
- *      Icon
- */
 
 export default function ProfileTabs({ self = true }: { self?: boolean }) {
 	return (

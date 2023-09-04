@@ -1,7 +1,4 @@
 "use client";
-import Card from "@/components/ui/card";
-import Link from "next/link";
-import { prisma } from "@/lib/prisma";
 
 import {
 	FeaturedProjects,
@@ -9,29 +6,26 @@ import {
 	Sidebar,
 } from "@/components/profile/components";
 import { Project, User } from "@prisma/client";
+import { UserWithProjects } from "@/lib/types";
 
 /**     Components
  *
- *     Profile
+ *      Profile
+ *      ProfileContext
  */
 
-type UserWithProjects = User & {
-	projects: Project[];
-};
-
-export default function Profile({
-	user,
-	self,
-	id,
-}: {
+interface ProfileProps {
 	user: UserWithProjects;
 	self: boolean;
-	id: string;
-}) {
-	const [isSelf, setIsSelf] = useState(self);
-	const [userData, setUserData] = useState(user);
+}
 
-	// Update userData if user changes
+export default function Profile({ user, self }: ProfileProps) {
+	// user + self state
+	const [userData, setUserData] = useState(user);
+	const [isSelf, setIsSelf] = useState(self);
+
+	// Update userData if user data changes
+	// This will update changes if user edits profile and submits form
 	useEffect(() => {
 		setUserData(user);
 	}, [user]);
@@ -58,20 +52,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ProfileContext = createContext<iContext | null>(null);
 
 interface iContext {
-	userData: User;
+	userData: UserWithProjects;
 	isSelf: boolean;
 	setUserData: any;
 }
 
-export function ProfileProvider({
-	children,
-	user,
-	self,
-}: {
+interface ProfileProvider {
+	user: UserWithProjects;
 	children: React.ReactNode;
-	user: any;
 	self: boolean;
-}) {
+}
+
+export function ProfileProvider({ children, user, self }: ProfileProvider) {
 	const [isSelf, setIsSelf] = useState(self);
 	const [userData, setUserData] = useState(user);
 

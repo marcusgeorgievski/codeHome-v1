@@ -2,8 +2,17 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
 import { useRouter } from "next/navigation";
+
+/**     Components
+ *
+ *      ProfileForm         Default
+ *
+ *      ProfileSection
+ *      BioSection
+ *      AboutSection
+ *      LinksSection
+ */
 
 const formSchema = z.object({
 	username: z
@@ -358,4 +367,3 @@ import { Textarea } from "../ui/shadcn/textarea";
 
 import { AiFillGithub, AiFillLinkedin, AiOutlineLaptop } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";
-import { Button } from "../ui/shadcn/button";

@@ -13,7 +13,7 @@ import { prisma } from "@/lib/prisma";
 
 export default function Home() {
 	return (
-		<div className="">
+		<div>
 			<Hero />
 			<HomeCards />
 		</div>
@@ -23,8 +23,10 @@ export default function Home() {
 async function Hero() {
 	const session = await getServerSession();
 
+	// Define user
 	let user = undefined;
 
+	// Fetch user if session exists
 	if (session?.user) {
 		user = await prisma.user.findUnique({
 			where: { email: session?.user?.email! },
@@ -33,14 +35,14 @@ async function Hero() {
 
 	return (
 		<div className="relative mb-8 h-[60vh]">
-			<div className="pt-10 mb-16 ">
-				{/* <span className="">{"{"}</span> */}
+			{/*  Title */}
+			<h1 className="pt-10 mb-16 ">
 				<CodeHome
 					className="justify-center text-5xl font-bold"
 					logo
 					logoStyle="w-20 translate-y-[2px]"
 				/>
-			</div>
+			</h1>
 
 			<p className="px-4 mb-4 text-center text-slate-700">
 				A centralized hub for your coding projects and learning
@@ -67,6 +69,8 @@ async function Hero() {
 				</Link>
 			</div>
 
+			{/* Blobs */}
+
 			<Blob
 				move="absolute left-40 translate-y-50 -z-10"
 				blob="absolute h-[150px] w-[400px] bg-gradient-to-b from-blue-500 to-blue-300 rounded-[50%] blur-3xl opacity-50 -rotate-45"
@@ -92,6 +96,7 @@ interface Card {
 	icon: React.ReactNode;
 	comingSoon?: boolean;
 }
+
 const cards: Card[] = [
 	{
 		title: "Compile",
@@ -145,8 +150,8 @@ function HomeCards() {
 		<section className="grid gap-6 px-4 md:px-12 md:grid-cols-2">
 			{cards.map((card: Card) => {
 				const { title, content, icon } = card;
+
 				return (
-					// <div key={title}>
 					<Card
 						key={title}
 						className="hover:scale-[1.02] transition-transform p-4 bg-white/80"
@@ -158,7 +163,6 @@ function HomeCards() {
 
 						{content}
 					</Card>
-					// </div>
 				);
 			})}
 		</section>
@@ -178,10 +182,6 @@ function Blob({
 	return (
 		<div className={move}>
 			<div className="relative flex items-center justify-center">
-				{/* <div
-					aria-hidden
-					className="absolute inset-x-0 w-40 mx-auto scale-y-100 rotate-45 rounded-full opacity-75 inset-y-16 bg-gradient-to-b from-blue-500 to-blue-300 blur-2xl/0"
-				></div> */}
 				<div className={blob}></div>
 				<div className="relative">{children}</div>
 			</div>

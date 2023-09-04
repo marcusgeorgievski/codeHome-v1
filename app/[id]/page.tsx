@@ -1,28 +1,14 @@
-import Card from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
-import Link from "next/link";
 import { getServerSession } from "next-auth";
-import {
-	FeaturedProjects,
-	Markdown,
-	Sidebar,
-} from "@/components/profile/components";
-import { Project, User } from "@prisma/client";
+import { UserWithProjects } from "@/lib/types";
 import Profile from "./Profile";
 
-/**     Components
- *
- *     Profile
- */
 interface Props {
 	params: { id: string };
 }
 
-type UserWithProjects = User & {
-	projects: Project[];
-};
-
 export default async function ProfilePage({ params: { id } }: Props) {
+	// Get user + featured projects
 	const user = await prisma.user.findUnique({
 		where: {
 			username: id,
@@ -32,8 +18,7 @@ export default async function ProfilePage({ params: { id } }: Props) {
 		},
 	});
 
-	console.log("Page.tsx: ", user);
-
+	// Check if user is on their own page
 	const session = await getServerSession();
 
 	let self = false;
@@ -43,7 +28,7 @@ export default async function ProfilePage({ params: { id } }: Props) {
 
 	return (
 		<>
-			<Profile user={user as UserWithProjects} self={self} id={id} />
+			<Profile user={user as UserWithProjects} self={self} />
 		</>
 	);
 }
