@@ -1,6 +1,7 @@
 import ProfileTabs from "./tabs";
 import { prisma } from "@/lib/prisma";
 import { ProfileCard } from "@/components/ui/user-cards";
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -41,12 +42,20 @@ export default async function ProfileLayout({
 		},
 	});
 
+	// Check if user is on their own page
+	const session = await getServerSession();
+
+	let self = false;
+	if (session) {
+		self = session?.user?.email === user?.email;
+	}
+
 	return (
 		<div>
 			<div className="mb-8">
 				<ProfileCard user={user} />
 
-				<ProfileTabs />
+				<ProfileTabs self={self} />
 			</div>
 
 			{children}

@@ -21,7 +21,7 @@ interface Tab {
 	text: string;
 	icon: React.ReactNode;
 	route: string;
-	self: boolean; // Show if self page
+	selfOnly: boolean; // Show if self page
 }
 
 const tabs: Tab[] = [
@@ -29,43 +29,43 @@ const tabs: Tab[] = [
 		text: "Profile",
 		icon: <HiOutlineUser className="mr-1" />,
 		route: "",
-		self: true,
+		selfOnly: false,
 	},
 	{
 		text: "Projects",
 		icon: <BsCode className="mr-1" />,
 		route: "/projects",
-		self: true,
+		selfOnly: false,
 	},
 	{
 		text: "Activity",
 		icon: <CgFeed className="mr-1" />,
 		route: "/activity",
-		self: true,
+		selfOnly: false,
 	},
 	{
 		text: "Social",
 		icon: <PiUsers className="mr-1" />,
 		route: "/social",
-		self: true,
+		selfOnly: false,
 	},
 	{
 		text: "Likes",
 		icon: <IoMdHeartEmpty className="mr-1" />,
 		route: "/likes",
-		self: true,
+		selfOnly: false,
 	},
 	{
 		text: "Settings",
 		icon: <HiOutlineCog className="mr-1" />,
 		route: "/settings",
-		self: true,
+		selfOnly: true,
 	},
 ];
 
 export default function ProfileTabs({ self = true }: { self?: boolean }) {
 	return (
-		<TabProvider>
+		<TabProvider self={self}>
 			<div className="hidden sm:block">
 				<TabBar />
 			</div>
@@ -77,7 +77,7 @@ export default function ProfileTabs({ self = true }: { self?: boolean }) {
 }
 
 export function TabBar() {
-	const { username, currentTab, setTab } = useContext(TabContext);
+	const { username, currentTab, setTab, self } = useContext(TabContext);
 
 	return (
 		<>
@@ -87,28 +87,36 @@ export function TabBar() {
 			>
 				{/* Tabs */}
 				<nav>
-					{tabs.map((tab) => {
-						return (
-							<button
-								key={tab.route}
-								value={tab.text.toLowerCase()}
-								onClick={() => setTab(tab.text.toLowerCase())}
-								className=""
-							>
-								<Link
-									href={`/${username}${tab.route}`}
-									className={`flex items-center w-full gap-2 px-3 py-[6px] text-sm font-medium rounded ${
-										currentTab === tab.text.toLowerCase()
-											? "text-black bg-white shadow-sm"
-											: "text-slate-500"
-									}`}
+					{tabs
+						.filter(
+							(tab) =>
+								tab.selfOnly === self || tab.selfOnly === false
+						)
+						.map((tab) => {
+							return (
+								<button
+									key={tab.route}
+									value={tab.text.toLowerCase()}
+									onClick={() =>
+										setTab(tab.text.toLowerCase())
+									}
+									className=""
 								>
-									{tab.icon}
-									{tab.text}
-								</Link>
-							</button>
-						);
-					})}
+									<Link
+										href={`/${username}${tab.route}`}
+										className={`flex items-center w-full gap-2 px-3 py-[6px] text-sm font-medium rounded ${
+											currentTab ===
+											tab.text.toLowerCase()
+												? "text-black bg-white shadow-sm"
+												: "text-slate-500"
+										}`}
+									>
+										{tab.icon}
+										{tab.text}
+									</Link>
+								</button>
+							);
+						})}
 				</nav>
 			</div>
 		</>
@@ -116,7 +124,7 @@ export function TabBar() {
 }
 
 export function TabDropdown() {
-	const { username, currentTab, setTab } = useContext(TabContext);
+	const { username, currentTab, setTab, self } = useContext(TabContext);
 
 	function capitalize(text: string): string {
 		if (text == null) return "";
@@ -135,23 +143,27 @@ export function TabDropdown() {
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
-				{tabs.map((tab) => {
-					return (
-						<DropdownMenuItem
-							key={tab.route}
-							asChild
-							onClick={() => setTab(tab.text.toLowerCase())}
-						>
-							<Link
-								href={`/${username}${tab.route}`}
-								className="flex w-full gap-2"
+				{tabs
+					.filter(
+						(tab) => tab.selfOnly === self || tab.selfOnly === false
+					)
+					.map((tab) => {
+						return (
+							<DropdownMenuItem
+								key={tab.route}
+								asChild
+								onClick={() => setTab(tab.text.toLowerCase())}
 							>
-								{tab.icon}
-								{tab.text}
-							</Link>
-						</DropdownMenuItem>
-					);
-				})}
+								<Link
+									href={`/${username}${tab.route}`}
+									className="flex w-full gap-2"
+								>
+									{tab.icon}
+									{tab.text}
+								</Link>
+							</DropdownMenuItem>
+						);
+					})}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
@@ -178,7 +190,13 @@ function Icon({ currentTab }: { currentTab: string }) {
 
 const TabContext = createContext<any>(null);
 
-export function TabProvider({ children }: { children: React.ReactNode }) {
+export function TabProvider({
+	self = false,
+	children,
+}: {
+	self?: boolean;
+	children: React.ReactNode;
+}) {
 	const [username, setUsername] = useState("");
 	const [currentTab, setTab] = useState("profile");
 
@@ -204,7 +222,7 @@ export function TabProvider({ children }: { children: React.ReactNode }) {
 	}, [pathname]);
 
 	return (
-		<TabContext.Provider value={{ username, currentTab, setTab }}>
+		<TabContext.Provider value={{ username, currentTab, setTab, self }}>
 			{children}
 		</TabContext.Provider>
 	);

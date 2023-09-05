@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 import {
 	DropdownMenu,
@@ -19,7 +20,7 @@ interface MenuItem {
 	route: string;
 }
 
-export default function UserDropdown({ user }: { user: User }) {
+export default function UserDropdown({ user }: { user: User | null }) {
 	const menuItems: MenuItem[] = [
 		{
 			text: "Profile",
@@ -57,15 +58,28 @@ export default function UserDropdown({ user }: { user: User }) {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<div className="flex items-center px-2 py-1 border rounded outline-none gap-2 transition-colors shadow-sm border-slate-200 hover:outline-none hover:bg-slate-100">
-					<Image
-						src={user.image ?? "fake"}
-						width={28}
-						height={28}
-						alt="alt text"
-						className="rounded-full"
-						priority
-					/>
-					<p className="text-xs text-slate-700 ">{user.name}</p>
+					{user && (
+						<Image
+							src={user.image ?? "fake"}
+							width={28}
+							height={28}
+							alt="alt text"
+							className="rounded-full"
+							priority
+						/>
+					)}
+					<p className="text-xs text-slate-700 ">
+						{user ? (
+							<>
+								<span className="text-slate-400 mr-[2px] text-xs">
+									@
+								</span>
+								{user.username}
+							</>
+						) : (
+							"Guest"
+						)}
+					</p>
 					<div className="flex flex-col items-center justify-center text-[10px] -translate-y-[1px] font-bold">
 						<HiChevronUp className="translate-y-[3px]" />
 						<HiChevronDown />
@@ -73,7 +87,11 @@ export default function UserDropdown({ user }: { user: User }) {
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
-				<div className="grid grid-cols-2 gap-2 sm:grid-cols-1 sm:w-[150px]">
+				<div
+					className={`grid gap-2 sm:grid-cols-1 sm:w-[150px] ${
+						user ? "grid-cols-2 " : "grid-cols-1"
+					}`}
+				>
 					<div className="">
 						<DropdownMenuLabel>
 							<span className="text-blue-800">My Account</span>
@@ -81,61 +99,88 @@ export default function UserDropdown({ user }: { user: User }) {
 						<DropdownMenuSeparator />
 
 						{/* Loop over routes */}
-						{menuItems.map((item) => {
-							return (
-								<DropdownMenuItem asChild key={item.route}>
-									<Link
-										href={`/${user.username}${item.route}`}
-										className="flex "
+						{user ? (
+							menuItems.map((item) => {
+								return (
+									<DropdownMenuItem asChild key={item.route}>
+										<Link
+											href={`/${user.username}${item.route}`}
+											className="flex "
+										>
+											{item.icon}
+											{item.text}
+										</Link>
+									</DropdownMenuItem>
+								);
+							})
+						) : (
+							<>
+								<DropdownMenuItem asChild>
+									<button
+										onClick={() => signIn()}
+										className="flex w-full font-semibold"
 									>
-										{item.icon}
-										{item.text}
-									</Link>
+										<HiOutlineUser className="mr-1 text-lg" />
+										Sign in
+									</button>
 								</DropdownMenuItem>
-							);
-						})}
+								<SiteLinks />
+							</>
+						)}
 
 						{/* Sign Out */}
-						<DropdownMenuItem asChild>
-							<button
-								onClick={() => signOut()}
-								className="flex w-full text-slate-500"
-							>
-								<PiSignOutLight className="mr-1 text-lg " />
-								Sign Out
-							</button>
-						</DropdownMenuItem>
+						{user && (
+							<DropdownMenuItem asChild>
+								<button
+									onClick={() => signOut()}
+									className="flex w-full text-slate-500"
+								>
+									<PiSignOutLight className="mr-1 text-lg " />
+									Sign Out
+								</button>
+							</DropdownMenuItem>
+						)}
 					</div>
 
 					{/* Additional routes for small screen */}
-					<div className="sm:hidden">
-						<DropdownMenuLabel>
-							<CodeHome className="font-bold" logo={false} />
-						</DropdownMenuLabel>
-						<DropdownMenuSeparator />
+					{user && (
+						<div className="sm:hidden">
+							<DropdownMenuLabel>
+								<CodeHome className="font-bold" logo={false} />
+							</DropdownMenuLabel>
+							<DropdownMenuSeparator />
 
-						<DropdownMenuItem asChild>
-							<Link href={"/"} className="flex w-full">
-								<SiHomeadvisor className="mr-1 text-lg" />
-								Home
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem asChild>
-							<Link href={"/explore"} className="flex w-full">
-								<BsCodeSlash className="mr-1 text-lg" />
-								Explore
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem asChild>
-							<Link href={"/about"} className="flex w-full">
-								<LiaBrainSolid className="mr-1 text-lg" />
-								About
-							</Link>
-						</DropdownMenuItem>
-					</div>
+							<SiteLinks />
+						</div>
+					)}
 				</div>
 			</DropdownMenuContent>
 		</DropdownMenu>
+	);
+}
+
+function SiteLinks() {
+	return (
+		<>
+			<DropdownMenuItem asChild>
+				<Link href={"/"} className="flex w-full">
+					<SiHomeadvisor className="mr-1 text-lg" />
+					Home
+				</Link>
+			</DropdownMenuItem>
+			<DropdownMenuItem asChild>
+				<Link href={"/explore"} className="flex w-full">
+					<BsCodeSlash className="mr-1 text-lg" />
+					Explore
+				</Link>
+			</DropdownMenuItem>
+			<DropdownMenuItem asChild>
+				<Link href={"/about"} className="flex w-full">
+					<LiaBrainSolid className="mr-1 text-lg" />
+					About
+				</Link>
+			</DropdownMenuItem>
+		</>
 	);
 }
 

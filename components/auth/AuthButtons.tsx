@@ -1,6 +1,5 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
 import Loading from "../ui/loading";
 import UserDropdown from "../ui/user-dropdown";
 import { User } from "@prisma/client";
