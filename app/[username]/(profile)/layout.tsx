@@ -1,6 +1,6 @@
-import ProfileTabs from "./tabs";
+import ProfileTabs from "./profile-tabs";
 import { prisma } from "@/lib/prisma";
-import { ProfileCard } from "@/components/ui/user-cards";
+import { ProfileCard } from "@/components/profile/cards";
 import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";

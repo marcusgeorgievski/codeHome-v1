@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -47,7 +48,6 @@ export default function NewProjectForm({ setEdit }: any) {
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		// @ts-ignore comment
 		const body = { userId: session?.user?.id, ...values };
-		console.log(body);
 		const res = await fetch("/api/project", {
 			method: "POST",
 			body: JSON.stringify(body),
@@ -92,7 +92,6 @@ export default function NewProjectForm({ setEdit }: any) {
 		</>
 	);
 }
-import { useState } from "react";
 
 export function AboutSection({ form, name }: { form: any; name?: any }) {
 	const [pName, setName] = useState(name || "");
@@ -336,6 +335,5 @@ import {
 import { Input } from "@/components/ui/shadcn/input";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 
-import { AiFillGithub, AiFillLinkedin, AiOutlineLaptop } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";
-import { CloudFog } from "lucide-react";

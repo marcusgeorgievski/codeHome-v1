@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
+import { useProfileContext } from "@/app/[username]/(profile)/Profile";
 
 /**     Components
  *
@@ -51,12 +52,13 @@ const formSchema = z.object({
 		.trim()
 		.max(30, { message: "Occupation cannot exceed 30 characters" })
 		.optional(),
-	github: z.string().trim().optional(),
-	linkedin: z.string().trim().optional(),
-	personal: z.string().trim().optional(),
-	link1: z.string().trim().optional(),
-	link2: z.string().trim().optional(),
-	link3: z.string().trim().optional(),
+	github: z.string().trim().url().or(z.literal("")).optional(),
+	linkedin: z.string().trim().url().or(z.literal("")).optional(),
+	personal: z.string().trim().url().or(z.literal("")).optional(),
+	link1: z.string().trim().url().or(z.literal("")).optional(),
+	link2: z.string().trim().url().or(z.literal("")).optional(),
+	link3: z.string().trim().url().or(z.literal("")).optional(),
+	contactEmail: z.string().trim().email().or(z.literal("")).optional(),
 });
 
 export default function ProfileForm({ setEdit }: any) {
@@ -77,6 +79,7 @@ export default function ProfileForm({ setEdit }: any) {
 			link1: userData.link1 || "",
 			link2: userData.link2 || "",
 			link3: userData.link3 || "",
+			contactEmail: userData.contactEmail || "",
 		},
 	});
 
@@ -94,15 +97,6 @@ export default function ProfileForm({ setEdit }: any) {
 			router.replace(body.username);
 			router.refresh();
 		});
-
-		// if (res.ok) {
-		// 	router.replace(body.username);
-		// 	router.refresh();
-		// 	const data = await res.json();
-		// 	console.log(data);
-		// 	// setUserData(data);
-		// 	setEdit(false);
-		// }
 	}
 
 	function handleCancel() {
@@ -196,6 +190,26 @@ export function ProfileSection({ form }: any) {
 							</FormControl>
 							<FormDescription>
 								This will be your public display name.
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="contactEmail"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Email</FormLabel>
+							<FormControl>
+								<Input
+									placeholder="Email"
+									{...field}
+									className="pl-3"
+								/>
+							</FormControl>
+							<FormDescription>
+								This will be your public contact email/
 							</FormDescription>
 							<FormMessage />
 						</FormItem>
@@ -362,8 +376,6 @@ import {
 	FormMessage,
 } from "@/components/ui/shadcn/form";
 import { Input } from "@/components/ui/shadcn/input";
-import { useProfileContext } from "@/app/[username]/Profile";
 import { Textarea } from "../ui/shadcn/textarea";
-
 import { AiFillGithub, AiFillLinkedin, AiOutlineLaptop } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";

@@ -4,8 +4,7 @@ import {
 	FeaturedProjects,
 	About,
 	Sidebar,
-} from "@/components/profile/components";
-import { Project, User } from "@prisma/client";
+} from "@/components/profile/profile-components";
 import { UserWithProjects } from "@/lib/types";
 
 /**     Components
@@ -32,8 +31,8 @@ export default function Profile({ user, self }: ProfileProps) {
 
 	return (
 		<ProfileContext.Provider value={{ isSelf, userData, setUserData }}>
-			<div className="grid grid-cols-1 sm:grid-cols-[1fr,3fr] gap-5">
-				<aside>
+			<div className="grid grid-cols-1 md:grid-cols-[1fr,3fr] gap-5">
+				<aside className="min-w-[250px]">
 					<Sidebar />
 				</aside>
 

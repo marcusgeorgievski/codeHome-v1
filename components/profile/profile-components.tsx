@@ -1,6 +1,6 @@
 "use client";
 import Card from "../ui/card";
-import { useProfileContext } from "@/app/[username]/Profile";
+import { useProfileContext } from "@/app/[username]/(profile)/Profile";
 import { useState } from "react";
 import ProfileForm from "./profile-form";
 
@@ -81,12 +81,18 @@ function SidebarContent() {
 						<span className="">Joined</span>
 						{userData.createdAt.toDateString() || "no data"}
 					</p>
-
-					<p className="flex items-center justify-between gap-2 text-sm text-slate-700">
-						<span className="">Email</span>
-						{userData.email || "no data"}
-					</p>
 				</div>
+			</div>
+
+			<div>
+				{userData.contactEmail && (
+					<a
+						href={`mailto:${userData.contactEmail}`}
+						className="px-2 py-1 bg-slate-50 border border-slate-200 text-slate-700 rounded hover:bg-slate-100  "
+					>
+						Email
+					</a>
+				)}
 			</div>
 		</div>
 	);
@@ -155,7 +161,7 @@ export function Links() {
 					</h3>
 
 					<div
-						className={`grid  sm:grid-cols-2 ${
+						className={`grid  lg:grid-cols-2 ${
 							validLinks.length < 4
 								? "grid-cols-1"
 								: "grid-cols-2"

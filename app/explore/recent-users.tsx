@@ -1,14 +1,12 @@
-"use client";
-import Link from "next/link";
-import Image from "next/image";
 import { User } from "@prisma/client";
-import { Suspense } from "react";
-import { ProfileCardSkeleton } from "@/components/ui/skeletons";
-import { UserCard } from "@/components/ui/user-cards";
+import { UserCard } from "@/components/profile/cards";
+import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-export default function Users({ users }: { users: User[] }) {
+export default async function RecentUsers() {
+	const users = await prisma.user.findMany();
+
 	if (users.length === 0)
 		return (
 			<div className="pt-8 font-semibold text-slate-600/70">

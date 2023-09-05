@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { IoMdColorFilter, IoIosCreate } from "react-icons/io";
+import { IoMdColorFilter } from "react-icons/io";
+import { HiOutlinePlusSm } from "react-icons/hi";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { ProjectList } from "@/components/project/project-list";
@@ -25,13 +26,13 @@ export default async function Projects({ params: { username } }: Props) {
 			<div className="mb-6">
 				<Link
 					href={"/new"}
-					className="inline-flex items-center gap-2 px-4 py-1 mr-2 text-lg font-semibold text-white bg-green-600 rounded hover:opacity-75"
+					className="inline-flex  items-center gap-2 px-4 py-1 mr-2  font-semibold text-green-500 hover:text-white bg-none hover:bg-green-500 rounded transition-colors border border-green-500"
 				>
-					<IoIosCreate />
+					<HiOutlinePlusSm />
 					Create Project
 				</Link>
 
-				<button className="inline-flex items-center gap-2 px-4 py-1 text-lg font-semibold text-white bg-blue-600 rounded hover:opacity-75">
+				<button className="inline-flex  items-center gap-2 px-4 py-1 mr-2  font-semibold text-blue-500 hover:text-white bg-none hover:bg-blue-500 rounded transition-colors border border-blue-500">
 					<IoMdColorFilter />
 					Filter
 				</button>
@@ -46,7 +47,7 @@ export default async function Projects({ params: { username } }: Props) {
 
 			<section>
 				<ProjectList
-					self={session?.user?.email === projects?.email}
+					username={username}
 					projects={projects?.projects || null}
 				/>
 			</section>
