@@ -3,7 +3,7 @@ import Card from "../ui/card";
 
 export function ProjectCardSkeleton() {
 	return (
-		<Card className="p-3 transition-all shadow bg-slate-50/50 border-slate-200/50  h-[130px] mb-2 w-[440px]">
+		<Card className="p-3 transition-all shadow bg-slate-50/50 border-slate-200/50  h-[130px] mb-2 w-full`">
 			<h3 className="text-xl font-bold text-slate-800 mb-2 flex justify-between items-center">
 				<Skeleton className="w-[150px] h-6" />
 			</h3>
